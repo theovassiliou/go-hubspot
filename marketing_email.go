@@ -3,7 +3,7 @@ package hubspot
 import (
 	"fmt"
 
-	"github.com/belong-inc/go-hubspot/legacy"
+	"github.com/theovassiliou/go-hubspot/legacy"
 )
 
 const (

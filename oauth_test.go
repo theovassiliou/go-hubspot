@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/belong-inc/go-hubspot"
 	"github.com/google/go-cmp/cmp"
+	"github.com/theovassiliou/go-hubspot"
 )
 
 func TestOAuthTokenManager_RetrieveToken(t *testing.T) {
