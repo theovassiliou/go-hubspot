@@ -18,8 +18,9 @@ type ObjectType string
 
 // Default Object types
 const (
-	ObjectTypeContact ObjectType = "contacts"
-	ObjectTypeDeal    ObjectType = "deals"
+	ObjectTypeContact   ObjectType = "contacts"
+	ObjectTypeDeal      ObjectType = "deals"
+	ObjectTypeCompanies ObjectType = "companies"
 )
 
 // AssociationType is the name of the key used to associate the objects together.
@@ -57,6 +58,9 @@ type Associations struct {
 	Deals struct {
 		Results []AssociationResult `json:"results"`
 	} `json:"deals"`
+	Companies struct {
+		Results []AssociationResult `json:"results"`
+	} `json:"companies"`
 }
 
 type AssociationResult struct {
