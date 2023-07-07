@@ -7,9 +7,11 @@ import "net/url"
 var (
 	ExportAPIVersion = defaultAPIVersion
 
-	ExportBaseURL         = defaultBaseURL
-	ExportContactBasePath = contactBasePath
-	ExportDealBasePath    = dealBasePath
+	ExportBaseURL          = defaultBaseURL
+	ExportContactBasePath  = contactBasePath
+	ExportDealBasePath     = dealBasePath
+	ExportOwnerBasePath    = ownerBasePath
+	ExportPipelineBasePath = pipelineBasePath
 )
 
 var (

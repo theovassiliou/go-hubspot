@@ -41,3 +41,22 @@ type BulkRequestQueryOption struct {
 	// Available only in API v1.
 	OrderBy string `url:"orderBy,omitempty"`
 }
+
+const (
+	FilterOperatorEqual = "EQ"
+)
+
+type RequestSearchOption struct {
+	Query        *HsStr        `json:"query,omitempty"`
+	FilterGroups []FilterGroup `json:"filterGroups,omitempty"`
+}
+
+type FilterGroup struct {
+	Filters []Filter `json:"filters,omitempty"`
+}
+
+type Filter struct {
+	Value        string `json:"value,omitempty"`
+	PropertyName string `json:"propertyName,omitempty"`
+	Operator     string `json:"operator,omitempty"`
+}

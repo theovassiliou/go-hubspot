@@ -13,6 +13,7 @@ type DealService interface {
 	Create(deal interface{}) (*ResponseResource, error)
 	Update(dealID string, deal interface{}) (*ResponseResource, error)
 	AssociateAnotherObj(dealID string, conf *AssociationConfig) (*ResponseResource, error)
+	Search(option *RequestSearchOption) (*ResponseResourceMulti, error)
 }
 
 // DealServiceOp handles communication with the product related methods of the HubSpot API.
@@ -135,5 +136,23 @@ func (s *DealServiceOp) AssociateAnotherObj(dealID string, conf *AssociationConf
 	if err := s.client.Put(s.dealPath+"/"+dealID+"/"+conf.makeAssociationPath(), nil, resource); err != nil {
 		return nil, err
 	}
+	return resource, nil
+}
+
+// Search finds a company.
+// In order to bind the get content, a structure must be specified as an argument.
+// Also, if you want to gets a custom field, you need to specify the field name.
+// If you specify a non-existent field, it will be ignored.
+// e.g. &hubspot.RequestQueryOption{ Properties: []string{"custom_a", "custom_b"}}
+func (s *DealServiceOp) Search(option *RequestSearchOption) (*ResponseResourceMulti, error) {
+	resources := []ResponseResource{}
+	for i := 0; i < 100; i++ {
+		resources = append(resources, ResponseResource{Properties: &Deal{}})
+	}
+	resource := &ResponseResourceMulti{Results: resources}
+	if err := s.client.Post(s.dealPath+"/search", option, resource); err != nil {
+		return nil, err
+	}
+
 	return resource, nil
 }
