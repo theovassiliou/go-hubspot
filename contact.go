@@ -1,5 +1,7 @@
 package hubspot
 
+import "github.com/mitchellh/mapstructure"
+
 const (
 	contactBasePath = "contacts"
 )
@@ -10,6 +12,7 @@ const (
 // Reference: https://developers.hubspot.com/docs/api/crm/contacts
 type ContactService interface {
 	Get(contactID string, contact interface{}, option *RequestQueryOption) (*ResponseResource, error)
+	Search(option *RequestSearchOption) (*ResponseResourceMulti, error)
 	Create(contact interface{}) (*ResponseResource, error)
 	Update(contactID string, contact interface{}) (*ResponseResource, error)
 	Delete(contactID string) error
@@ -326,6 +329,23 @@ func (s *ContactServiceOp) Get(contactID string, contact interface{}, option *Re
 	if err := s.client.Get(s.contactPath+"/"+contactID, resource, option.setupProperties(defaultContactFields)); err != nil {
 		return nil, err
 	}
+	return resource, nil
+}
+
+func (s *ContactServiceOp) Search(option *RequestSearchOption) (*ResponseResourceMulti, error) {
+	var result map[string]interface{}
+	resources := []ResponseResource{}
+
+	if err := s.client.Post(s.contactPath+"/search", option, &result); err != nil {
+		return nil, err
+	}
+
+	for _, v := range result["results"].([]interface{}) {
+		r := ResponseResource{Properties: &Contact{}}
+		mapstructure.Decode(v, &r)
+		resources = append(resources, r)
+	}
+	resource := &ResponseResourceMulti{Results: resources}
 	return resource, nil
 }
 
