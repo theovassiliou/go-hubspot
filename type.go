@@ -68,6 +68,16 @@ func (ht *HsTime) UnmarshalJSON(b []byte) error {
 	*ht = HsTime(*v)
 	return nil
 }
+func (ht *HsTime) MarshalJSON() ([]byte, error) {
+	if ht == nil {
+		return []byte("null"), nil
+	}
+	v := time.Time(*ht)
+	if v.IsZero() {
+		return []byte(`""`), nil
+	}
+	return []byte(`"` + v.Format(time.RFC3339) + `"`), nil
+}
 
 // String implemented Stringer.
 func (ht *HsTime) String() string {
