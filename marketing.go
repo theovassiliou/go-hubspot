@@ -9,6 +9,7 @@ const (
 type Marketing struct {
 	Email         MarketingEmailService
 	Transactional TransactionalService
+	Event         MarketingEventService
 }
 
 func newMarketing(c *Client) *Marketing {
@@ -17,6 +18,10 @@ func newMarketing(c *Client) *Marketing {
 		Transactional: &TransactionalServiceOp{
 			client:            c,
 			transactionalPath: fmt.Sprintf("%s/%s/%s", marketingBasePath, c.apiVersion, transactionalBasePath),
+		},
+		Event: &MarketingEventServiceOp{
+			marketingEventPath: fmt.Sprintf("%s/%s/%s", marketingBasePath, c.apiVersion, marketingEventBasePath),
+			client:             c,
 		},
 	}
 }
