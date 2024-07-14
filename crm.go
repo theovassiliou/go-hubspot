@@ -9,15 +9,16 @@ const (
 )
 
 type CRM struct {
-	Company    CompanyService
-	Contact    ContactService
-	Deal       DealService
-	Owner      OwnerService
-	Pipeline   PipelineService
-	Imports    CrmImportsService
-	Schemas    CrmSchemasService
-	Properties CrmPropertiesService
-	Tickets    CrmTicketsServivce
+	Company         CompanyService
+	Contact         ContactService
+	Deal            DealService
+	Owner           OwnerService
+	Pipeline        PipelineService
+	Imports         CrmImportsService
+	Schemas         CrmSchemasService
+	Properties      CrmPropertiesService
+	Tickets         CrmTicketsServivce
+	MarketingEvents MarketingEventService
 }
 
 func newCRM(c *Client) *CRM {

@@ -19,7 +19,7 @@ type CompanyService interface {
 	Delete(companyID string) error
 }
 
-// OwnerServiceOp handles communication with the product related methods of the HubSpot API.
+// OwnerServiceOp handles communication with the company related methods of the HubSpot API.
 type CompanyServiceOp struct {
 	companyPath string
 	client      *Client
